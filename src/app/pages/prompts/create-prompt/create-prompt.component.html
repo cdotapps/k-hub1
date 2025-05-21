@@ -1,0 +1,129 @@
+<app-page-container title="Create New Prompt" subtitle="Design a prompt template to help streamline your workflow">
+  <div *ngIf="!isLoading; else loading">
+    <div *ngIf="error" class="error-message">
+      <fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon>
+      {{ error }}
+    </div>
+
+    <form [formGroup]="promptForm" (ngSubmit)="onSubmit()" class="prompt-form">
+      <!-- Title Field -->
+      <div class="form-group">
+        <label for="title">Title <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title" 
+          placeholder="Enter a descriptive title"
+          class="form-control"
+          [ngClass]="{'is-invalid': promptForm.get('title')?.invalid && promptForm.get('title')?.touched}">
+        <div class="error-feedback" *ngIf="promptForm.get('title')?.invalid && promptForm.get('title')?.touched">
+          <span *ngIf="promptForm.get('title')?.errors?.['required']">Title is required</span>
+          <span *ngIf="promptForm.get('title')?.errors?.['minlength']">Title must be at least 5 characters</span>
+          <span *ngIf="promptForm.get('title')?.errors?.['maxlength']">Title must be less than 100 characters</span>
+        </div>
+      </div>
+
+      <!-- Description Field -->
+      <div class="form-group">
+        <label for="description">Description <span class="required">*</span></label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          placeholder="Briefly describe what this prompt does"
+          class="form-control"
+          rows="3"
+          [ngClass]="{'is-invalid': promptForm.get('description')?.invalid && promptForm.get('description')?.touched}"></textarea>
+        <div class="error-feedback" *ngIf="promptForm.get('description')?.invalid && promptForm.get('description')?.touched">
+          <span *ngIf="promptForm.get('description')?.errors?.['required']">Description is required</span>
+          <span *ngIf="promptForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters</span>
+          <span *ngIf="promptForm.get('description')?.errors?.['maxlength']">Description must be less than 250 characters</span>
+        </div>
+      </div>
+
+      <!-- Content Field -->
+      <div class="form-group">
+        <label for="content">Prompt Content <span class="required">*</span></label>
+        <div class="content-description">
+          Use <code>{{placeholderExample}}</code> as placeholders for variables that will be filled in when the prompt is used.
+        </div>
+        <textarea 
+          id="content" 
+          formControlName="content" 
+          placeholder="Enter your prompt template here..."
+          class="form-control content-textarea"
+          rows="10"
+          [ngClass]="{'is-invalid': promptForm.get('content')?.invalid && promptForm.get('content')?.touched}"></textarea>
+        <div class="error-feedback" *ngIf="promptForm.get('content')?.invalid && promptForm.get('content')?.touched">
+          <span *ngIf="promptForm.get('content')?.errors?.['required']">Prompt content is required</span>
+          <span *ngIf="promptForm.get('content')?.errors?.['minlength']">Content must be at least 20 characters</span>
+        </div>
+      </div>
+
+      <!-- Category Field -->
+      <div class="form-group">
+        <label for="category">Category <span class="required">*</span></label>
+        <select 
+          id="category" 
+          formControlName="category" 
+          class="form-control"
+          [ngClass]="{'is-invalid': promptForm.get('category')?.invalid && promptForm.get('category')?.touched}">
+          <option value="" disabled>Select a category</option>
+          <option *ngFor="let cat of categories" [value]="cat.id">
+            {{ cat.name }}
+          </option>
+        </select>
+        <div class="error-feedback" *ngIf="promptForm.get('category')?.invalid && promptForm.get('category')?.touched">
+          <span *ngIf="promptForm.get('category')?.errors?.['required']">Category is required</span>
+        </div>
+      </div>
+
+      <!-- Tags Field -->
+      <div class="form-group">
+        <label for="tags">Tags</label>
+        <div class="tags-input-container">
+          <input 
+            type="text" 
+            id="tags" 
+            [(ngModel)]="tagsInput" 
+            [ngModelOptions]="{standalone: true}"
+            placeholder="Add a tag and press Enter"
+            class="form-control tag-input"
+            (keyup.enter)="addTag()">
+          <button type="button" class="btn btn-secondary add-tag-btn" (click)="addTag()">
+            <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+          </button>
+        </div>
+        <div class="tags-container">
+          <div class="tag" *ngFor="let tag of promptForm.get('tags')?.value || []">
+            {{ tag }}
+            <button type="button" class="tag-remove" (click)="removeTag(tag)">
+              <fa-icon [icon]="['fas', 'times']"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" (click)="cancel()">Cancel</button>
+        <button 
+          type="submit" 
+          class="btn btn-primary" 
+          [disabled]="isSaving">
+          <span *ngIf="!isSaving">Save Prompt</span>
+          <span *ngIf="isSaving">
+            <fa-icon [icon]="['fas', 'spinner']" [spin]="true"></fa-icon>
+            Saving...
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-container">
+      <fa-icon [icon]="['fas', 'spinner']" [spin]="true" size="3x"></fa-icon>
+      <p>Loading...</p>
+    </div>
+  </ng-template>
+</app-page-container>

@@ -1,0 +1,200 @@
+<div class="app-container">
+  <!-- Sidebar -->
+  <aside [class.collapsed]="!isSidebarOpen" [class.minimized]="isSidebarMinimized" class="sidebar">
+    <div class="sidebar-inner">
+      <!-- Sidebar Header -->
+      <div class="sidebar-header">
+        <div class="logo-container">
+          <img src="assets/title.png" alt="Knowledge Hub Logo" class="sidebar-logo-image" (click)="toggleSidebarMinimize()" >
+        </div>
+        <div class="sidebar-controls">
+          <h3 class="sidebar-title">Knowledge Hub</h3>
+        </div>
+      </div>
+
+      <!-- Sidebar Content -->
+      <div class="sidebar-content">
+        <!-- Dynamic Menu Sections -->
+        <div class="sidebar-section" *ngFor="let section of menuSections">
+          <div class="section-header" 
+               [class.active]="section.expanded" 
+               [class.contains-active-route]="sectionContainsActiveRoute(section)"
+               (click)="toggleMenuSection(section)">
+            <h3 class="sidebar-section-title">
+              <fa-icon icon="folder"></fa-icon>
+              <span>{{ section.title }}</span>
+            </h3>
+            <fa-icon class="section-toggle-icon" [icon]="section.expanded ? 'chevron-down' : 'chevron-right'"></fa-icon>
+          </div>
+          <div class="section-content" [class.expanded]="section.expanded">
+            <ul class="nav-list">
+              <li class="nav-item" *ngFor="let item of section.items">
+                <a [routerLink]="[item.route]" 
+                   routerLinkActive="active" 
+                   [routerLinkActiveOptions]="{exact: item.route === '/'}" 
+                   class="nav-link">
+                  <fa-icon [icon]="item.icon"></fa-icon>
+                  <span>{{ item.name }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Static Sections -->
+        <!-- Knowledge Hub Section -->
+        <div class="sidebar-section">
+          <div class="section-header" 
+               [class.active]="isExpanded('knowledgeHub')" 
+               [class.contains-active-route]="staticSectionContainsActiveRoute('knowledgeHub')"
+               (click)="toggleStaticSection('knowledgeHub')">
+            <h3 class="sidebar-section-title">
+              <fa-icon icon="tachometer-alt"></fa-icon>
+              <span>Knowledge Hub</span>
+            </h3>
+            <fa-icon class="section-toggle-icon" [icon]="isExpanded('knowledgeHub') ? 'chevron-down' : 'chevron-right'"></fa-icon>
+          </div>
+          <div class="section-content" [class.expanded]="isExpanded('knowledgeHub')">
+            <ul class="nav-list">
+              <li class="nav-item">
+                <a [routerLink]="['/dashboard']" 
+                   routerLinkActive="active" 
+                   [routerLinkActiveOptions]="{exact: true}" 
+                   class="nav-link">
+                  <fa-icon icon="tachometer-alt"></fa-icon>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/discover']" 
+                   routerLinkActive="active" 
+                   [routerLinkActiveOptions]="{exact: true}" 
+                   class="nav-link">
+                  <fa-icon icon="compass"></fa-icon>
+                  <span>Discover</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/my-learning']" 
+                   routerLinkActive="active" 
+                   [routerLinkActiveOptions]="{exact: true}" 
+                   class="nav-link">
+                  <fa-icon icon="road"></fa-icon>
+                  <span>My Learning Path</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Community Section
+        <div class="sidebar-section">
+          <div class="section-header" [class.active]="isExpanded('community')" (click)="toggleStaticSection('community')">
+            <h3 class="sidebar-section-title">
+              <fa-icon icon="users"></fa-icon>
+              <span>Community</span>
+            </h3>
+            <fa-icon class="section-toggle-icon" [icon]="isExpanded('community') ? 'chevron-down' : 'chevron-right'"></fa-icon>
+          </div>
+          <div class="section-content" [class.expanded]="isExpanded('community')">
+            <ul class="nav-list">
+              <li class="nav-item">
+                <a [routerLink]="['/forums']" routerLinkActive="active" class="nav-link">
+                  <fa-icon icon="comments"></fa-icon>
+                  <span>Discussion Forums</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/experts']" routerLinkActive="active" class="nav-link">
+                  <fa-icon icon="user-tie"></fa-icon>
+                  <span>Expert Connect</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/events']" routerLinkActive="active" class="nav-link">
+                  <fa-icon icon="calendar-alt"></fa-icon>
+                  <span>Community Events</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div> -->
+
+        <!-- My Contributions Section
+        <div class="sidebar-section">
+          <div class="section-header" [class.active]="isExpanded('myContributions')" (click)="toggleStaticSection('myContributions')">
+            <h3 class="sidebar-section-title">
+              <fa-icon icon="pencil-alt"></fa-icon>
+              <span>My Contributions</span>
+            </h3>
+            <fa-icon class="section-toggle-icon" [icon]="isExpanded('myContributions') ? 'chevron-down' : 'chevron-right'"></fa-icon>
+          </div>
+          <div class="section-content" [class.expanded]="isExpanded('myContributions')">
+            <ul class="nav-list">
+              <li class="nav-item">
+                <a [routerLink]="['/my-content']" routerLinkActive="active" class="nav-link">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span>Authored Content</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/drafts']" routerLinkActive="active" class="nav-link">
+                  <fa-icon icon="edit"></fa-icon>
+                  <span>Drafts</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/feedback']" routerLinkActive="active" class="nav-link">
+                  <fa-icon icon="chart-bar"></fa-icon>
+                  <span>Stats & Feedback</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div> -->
+      </div>
+
+      <!-- User Profile -->
+      <div class="user-profile">
+        <div class="user-avatar">
+          <fa-icon icon="user-circle"></fa-icon>
+        </div>
+        <div class="user-info">
+          <h4 class="user-name">John Doe</h4>
+          <p class="user-role">Senior Developer</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main [class.sidebar-collapsed]="!isSidebarOpen" [class.sidebar-minimized]="isSidebarMinimized" class="main-content">
+    <!-- Main Header -->
+    <header class="main-header">
+      <div class="header-left">
+        <button class="menu-toggle" (click)="toggleSidebar()" title="Toggle sidebar">
+          <fa-icon [icon]="isSidebarOpen ? 'bars' : 'bars'"></fa-icon>
+        </button>
+        <h1 class="page-title">{{ currentPageTitle }}</h1>
+      </div>
+      <div class="header-right">
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search knowledge base...">
+          <div class="keyboard-shortcut">
+            <span>⌘</span>
+            <span>K</span>
+          </div>
+        </div>
+        <button class="new-project-btn" title="Create new content">
+          <fa-icon icon="plus"></fa-icon>
+          <span>New Content</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

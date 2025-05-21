@@ -1,0 +1,124 @@
+<!-- Grid View -->
+<div *ngIf="viewMode === 'grid'" class="prompt-card">
+  <div class="card-header">
+    <div class="category-badge" [attr.data-category]="prompt.category">
+      <fa-icon [icon]="categoryIcon"></fa-icon>
+      {{ categoryName }}
+    </div>
+    <div class="card-actions">
+      <button class="favorite-btn" [class.favorited]="prompt.isFavorite" (click)="toggleFavorite($event)">
+        <fa-icon [icon]="prompt.isFavorite ? 'heart' : 'heart-broken'"></fa-icon>
+      </button>
+      <button class="menu-btn">
+        <fa-icon icon="ellipsis-v"></fa-icon>
+      </button>
+    </div>
+  </div>
+  
+  <div class="card-content">
+    <!-- Content projection for prompt ID in grid view -->
+    <ng-content></ng-content>
+    <h3 class="prompt-title" [title]="prompt.title">{{ prompt.title }}</h3>
+    <p class="prompt-description">{{ prompt.description }}</p>
+    
+    <div class="tags-container">
+      <span class="tag" *ngFor="let tag of prompt.tags.slice(0, 3)">{{ tag }}</span>
+      <span class="more-tags" *ngIf="prompt.tags.length > 3">+{{ prompt.tags.length - 3 }}</span>
+    </div>
+  </div>
+  
+  <div class="card-footer">
+    <div class="author-info">
+      <div class="author-avatar">
+        <fa-icon icon="user-circle"></fa-icon>
+      </div>
+      <span class="author-name">{{ prompt.authorName }}</span>
+    </div>
+    
+    <div class="metrics">
+      <div class="metric">
+        <fa-icon icon="heart"></fa-icon>
+        <span>{{ prompt.likes }}</span>
+      </div>
+      <div class="metric">
+        <fa-icon icon="chart-line"></fa-icon>
+        <span>{{ prompt.usageCount }}</span>
+      </div>
+    </div>
+
+    <div class="card-actions-footer">
+      <button class="view-btn" (click)="view($event)">
+        View
+      </button>
+      <button class="use-btn" (click)="use($event)">
+        Use Prompt
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- List View -->
+<div *ngIf="viewMode === 'list'" class="prompt-list-item">
+  <div class="list-item-left">
+    <div class="list-category-badge" [attr.data-category]="prompt.category">
+      <fa-icon [icon]="categoryIcon"></fa-icon>
+    </div>
+  </div>
+  
+  <div class="list-item-content">
+    <div class="list-item-header">
+      <div class="list-item-title-row">
+        <h3 class="prompt-title" [title]="prompt.title">{{ prompt.title }}</h3>
+        <div class="list-item-category">{{ categoryName }}</div>
+      </div>
+      <div class="list-item-actions">
+        <button class="favorite-btn" [class.favorited]="prompt.isFavorite" (click)="toggleFavorite($event)">
+          <fa-icon [icon]="prompt.isFavorite ? 'heart' : 'heart-broken'"></fa-icon>
+        </button>
+        <button class="menu-btn">
+          <fa-icon icon="ellipsis-v"></fa-icon>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Content projection for prompt ID in list view -->
+    <ng-content></ng-content>
+    <p class="prompt-description">{{ prompt.description }}</p>
+    
+    <div class="list-item-footer">
+      <div class="list-item-meta">
+        <div class="author-info">
+          <div class="author-avatar">
+            <fa-icon icon="user-circle"></fa-icon>
+          </div>
+          <span class="author-name">{{ prompt.authorName }}</span>
+        </div>
+        
+        <div class="tags-container">
+          <span class="tag" *ngFor="let tag of prompt.tags.slice(0, 3)">{{ tag }}</span>
+          <span class="more-tags" *ngIf="prompt.tags.length > 3">+{{ prompt.tags.length - 3 }}</span>
+        </div>
+      </div>
+      
+      <div class="list-item-stats">
+        <div class="metric">
+          <fa-icon icon="heart"></fa-icon>
+          <span>{{ prompt.likes }}</span>
+        </div>
+        <div class="metric">
+          <fa-icon icon="chart-line"></fa-icon>
+          <span>{{ prompt.usageCount }}</span>
+        </div>
+        
+        <div class="list-actions-buttons">
+          <button class="view-btn" (click)="view($event)">
+            View
+          </button>
+          <button class="use-btn" (click)="use($event)">
+            Use Prompt
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

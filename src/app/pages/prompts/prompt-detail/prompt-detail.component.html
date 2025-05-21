@@ -1,0 +1,101 @@
+<app-page-container [showHeader]="false">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner">
+      <fa-icon icon="spinner" class="fa-spin fa-3x"></fa-icon>
+    </div>
+    <p>Loading prompt details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-container">
+    <fa-icon icon="exclamation-circle" class="error-icon"></fa-icon>
+    <p>{{ error }}</p>
+    <button class="retry-button" (click)="loadPrompt()">Try Again</button>
+  </div>
+
+  <div *ngIf="prompt && !isLoading && !error">
+    <!-- Back button and Header -->
+    <div class="detail-header">
+      <button class="back-button" (click)="goBack()">
+        <fa-icon icon="arrow-left"></fa-icon>
+        Back to Prompts
+      </button>
+      
+      <div class="header-actions">
+        <button class="favorite-btn" [class.favorited]="prompt.isFavorite" (click)="toggleFavorite()">
+          <fa-icon [icon]="prompt.isFavorite ? 'heart' : 'heart-broken'"></fa-icon>
+          {{ prompt.isFavorite ? 'Favorited' : 'Add to Favorites' }}
+        </button>
+        <button class="use-btn">
+          <fa-icon icon="play"></fa-icon>
+          Use Prompt
+        </button>
+      </div>
+    </div>
+
+    <!-- Prompt Title and Category Section -->
+    <div class="prompt-header-section">
+      <div class="category-badge" [attr.data-category]="prompt.category">
+        <fa-icon [icon]="getCategoryIcon(prompt.category)"></fa-icon>
+        {{ getCategoryName(prompt.category) }}
+      </div>
+      <!-- Added prompt ID display here -->
+      <div class="prompt-id">ID: {{ prompt.id }}</div>
+      <h1 class="prompt-title">{{ prompt.title }}</h1>
+      <p class="prompt-description">{{ prompt.description }}</p>
+    </div>
+
+    <!-- Metadata Section -->
+    <div class="metadata-section">
+      <div class="metadata-item">
+        <fa-icon icon="user-circle"></fa-icon>
+        <span>Author: {{ prompt.authorName }}</span>
+      </div>
+      <div class="metadata-item">
+        <fa-icon icon="calendar-alt"></fa-icon>
+        <span>Created: {{ prompt.dateCreated | date:'mediumDate' }}</span>
+      </div>
+      <div class="metadata-item">
+        <fa-icon icon="pencil-alt"></fa-icon>
+        <span>Updated: {{ prompt.lastModified | date:'mediumDate' }}</span>
+      </div>
+      <div class="metadata-item">
+        <fa-icon icon="heart"></fa-icon>
+        <span>{{ prompt.likes }} Likes</span>
+      </div>
+      <div class="metadata-item">
+        <fa-icon icon="chart-line"></fa-icon>
+        <span>{{ prompt.usageCount }} Uses</span>
+      </div>
+    </div>
+
+    <!-- Tags Section -->
+    <div class="tags-section">
+      <h3 class="section-title">Tags</h3>
+      <div class="tags-container">
+        <span class="tag" *ngFor="let tag of prompt.tags">{{ tag }}</span>
+      </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content-section">
+      <h3 class="section-title">Prompt Content</h3>
+      <div class="prompt-content-box">
+        {{ prompt.content }}
+      </div>
+      <div class="content-actions">
+        <button class="copy-btn">
+          <fa-icon icon="copy"></fa-icon>
+          Copy to Clipboard
+        </button>
+      </div>
+    </div>
+
+    <!-- Related Prompts Section (placeholder for future enhancement) -->
+    <div class="related-section">
+      <h3 class="section-title">Related Prompts</h3>
+      <p class="no-related-message">No related prompts available at this time.</p>
+    </div>
+  </div>
+</app-page-container>

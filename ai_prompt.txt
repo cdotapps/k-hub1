@@ -1,0 +1,29 @@
+ROMPT FOR A CODING MODEL
+
+PROJECT TITLE: DEVELOPER KHOWLEDGE HUB
+
+Develop a web application that serves as a collaborative platform for developers to share, reuse, and learn various technology ideas. 
+The application should feature a modern user interface, ensuring an intuitive and engaging user experience.
+which had the sidebar and nice layout template which I can use for all pages.
+
+
+KEY FEATURES:
+
+- User Authentication: Allow users to register, login, and logout securely. Implement role-based access control (e.g., admin, developer) to manage user permissions.
+- Profile Management: Enable users to create profiles with details such as name, profile picture, bio, and contact information.
+- Technology Ideas Sharing: Provide a space for developers to share their ideas, including code snippets, project descriptions, and resources. Implement features like likes, comments, and ratings to enhance engagement.
+- Collaboration Tools: Allow developers to collaborate on projects, share files, and discuss ideas in real-time using chat or video conferencing tools.
+- Community Features: Create a community forum where users can ask questions, participate in discussions, and engage with other developers. Implement features like notifications for new replies and mentions.
+- Search Functionality: Enable users to search for technology ideas based on keywords, tags, or categories. Provide suggestions and autocomplete functionality to improve the search experience.
+- Analytics and Reporting: Track user behavior, engagement metrics, and usage patterns to provide insights into developer preferences and trends. Implement features like heat maps, funnel analysis, and conversion rates.
+- Integration with APIs: Integrate the application with popular APIs such as GitHub, Stack Overflow, and GitLab to access project repositories, issue trackers, and code snippets.
+
+PROJECT STRUCTURE:
+
+- Project should use global styles, typography and themes
+- Use components instead of templates
+- Use services instead of controllers
+- Use routing for navigation between pages
+- Use HTTP requests to fetch data from APIs
+- Use RxJS operators for handling asynchronous operations
+- Use Angular best practices such as dependency injection, component lifecycle hooks, and error handling

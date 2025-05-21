@@ -1,0 +1,72 @@
+<header class="site-header">
+  <div class="header-container">
+    <!-- Left side -->
+    <div class="header-left">
+      <button class="menu-toggle" (click)="toggleSidebar()">
+        <fa-icon [icon]="isSidebarOpen ? 'times' : 'bars'"></fa-icon>
+      </button>
+    </div>
+
+    <!-- Right side -->
+    <div class="header-controls">
+      <!-- Search -->
+      <div class="search-wrapper">
+        <input type="text" 
+               placeholder="Search knowledge base..." 
+               class="search-input"
+               (focus)="onSearchFocus()"
+               (blur)="onSearchBlur()">
+        <button class="search-button">
+          <fa-icon [icon]="'search'"></fa-icon>
+        </button>
+      </div>
+      
+      <!-- Navigation -->
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a routerLink="/dashboard" routerLinkActive="active">
+              <fa-icon [icon]="'tachometer-alt'"></fa-icon>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          
+          <!-- Quick Links Dropdown -->
+          <li class="dropdown">
+            <a class="dropdown-toggle">
+              <fa-icon [icon]="'bolt'"></fa-icon>
+              <span>Quick Links</span>
+              <fa-icon [icon]="'chevron-down'" class="dropdown-icon"></fa-icon>
+            </a>
+            <div class="dropdown-menu">
+              <a routerLink="/articles" routerLinkActive="active">
+                <fa-icon [icon]="'newspaper'"></fa-icon>
+                <span>Articles</span>
+              </a>
+              <a routerLink="/documentation" routerLinkActive="active">
+                <fa-icon [icon]="'file-alt'"></fa-icon>
+                <span>Documentation</span>
+              </a>
+              <a routerLink="/tutorials" routerLinkActive="active">
+                <fa-icon [icon]="'chalkboard-teacher'"></fa-icon>
+                <span>Tutorials</span>
+              </a>
+              <a routerLink="/faqs" routerLinkActive="active">
+                <fa-icon [icon]="'question-circle'"></fa-icon>
+                <span>FAQs</span>
+              </a>
+            </div>
+          </li>
+          
+          <!-- Create New Button -->
+          <li>
+            <a class="create-new-btn">
+              <fa-icon [icon]="'plus'"></fa-icon>
+              <span>Create New</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

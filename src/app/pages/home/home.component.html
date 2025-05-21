@@ -1,0 +1,227 @@
+<section class="hero">
+  <div class="container">
+    <h1>Welcome to K-Hub</h1>
+    <p>Your knowledge hub for everything</p>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <div class="feature-card">
+      <h2>Discover</h2>
+      <p>Find valuable resources and knowledge in one place.</p>
+    </div>
+    <div class="feature-card">
+      <h2>Learn</h2>
+      <p>Expand your skills with curated learning paths.</p>
+    </div>
+    <div class="feature-card">
+      <h2>Connect</h2>
+      <p>Join a community of like-minded individuals.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Dashboard Stats Overview -->
+<section class="stats-overview">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <fa-icon [icon]="['fas', 'folder']"></fa-icon>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-title">Projects</h3>
+        <p class="stat-value">24</p>
+        <div class="stat-trend positive">
+          <fa-icon [icon]="['fas', 'arrow-up']"></fa-icon>
+          <span>12% from last month</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">
+        <fa-icon [icon]="['fas', 'file-alt']"></fa-icon>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-title">Documents</h3>
+        <p class="stat-value">175</p>
+        <div class="stat-trend positive">
+          <fa-icon [icon]="['fas', 'arrow-up']"></fa-icon>
+          <span>8% from last month</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">
+        <fa-icon [icon]="['fas', 'users']"></fa-icon>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-title">Team Members</h3>
+        <p class="stat-value">16</p>
+        <div class="stat-trend positive">
+          <fa-icon [icon]="['fas', 'arrow-up']"></fa-icon>
+          <span>2 new this month</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">
+        <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-title">Tasks Completed</h3>
+        <p class="stat-value">85%</p>
+        <div class="stat-trend positive">
+          <fa-icon [icon]="['fas', 'arrow-up']"></fa-icon>
+          <span>5% from last month</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Calendar & Tasks Section -->
+<section class="overview-grid">
+  <div class="calendar-widget">
+    <div class="widget-header">
+      <h2 class="widget-title">May 2025</h2>
+      <div class="widget-actions">
+        <button class="btn-icon"><fa-icon [icon]="['fas', 'chevron-left']"></fa-icon></button>
+        <button class="btn-icon"><fa-icon [icon]="['fas', 'chevron-right']"></fa-icon></button>
+      </div>
+    </div>
+    
+    <div class="calendar">
+      <div class="calendar-header">
+        <span>M</span>
+        <span>T</span>
+        <span>W</span>
+        <span>T</span>
+        <span>F</span>
+        <span>S</span>
+        <span>S</span>
+      </div>
+      <div class="calendar-body">
+        <div class="calendar-date prev-month">29</div>
+        <div class="calendar-date prev-month">30</div>
+        <div class="calendar-date">1</div>
+        <div class="calendar-date">2</div>
+        <div class="calendar-date current-date">3</div>
+        <div class="calendar-date">4</div>
+        <div class="calendar-date">5</div>
+        <div class="calendar-date">6</div>
+        <div class="calendar-date">7</div>
+        <div class="calendar-date">8</div>
+        <div class="calendar-date">9</div>
+        <div class="calendar-date">10</div>
+        <div class="calendar-date">11</div>
+        <div class="calendar-date">12</div>
+        <div class="calendar-date">13</div>
+        <div class="calendar-date">14</div>
+        <div class="calendar-date">15</div>
+        <div class="calendar-date">16</div>
+        <div class="calendar-date">17</div>
+        <div class="calendar-date today">18</div>
+        <div class="calendar-date">19</div>
+        <div class="calendar-date">20</div>
+        <div class="calendar-date">21</div>
+        <div class="calendar-date has-event">22</div>
+        <div class="calendar-date">23</div>
+        <div class="calendar-date">24</div>
+        <div class="calendar-date has-event">25</div>
+        <div class="calendar-date">26</div>
+        <div class="calendar-date">27</div>
+        <div class="calendar-date">28</div>
+        <div class="calendar-date">29</div>
+        <div class="calendar-date">30</div>
+        <div class="calendar-date">31</div>
+        <div class="calendar-date next-month">1</div>
+        <div class="calendar-date next-month">2</div>
+      </div>
+    </div>
+    
+    <div class="event-list">
+      <div class="event-item">
+        <div class="event-time">11:00 - 12:00</div>
+        <div class="event-details">
+          <h4>Prototype Testing</h4>
+          <p>Online Meeting</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="tasks-widget">
+    <div class="widget-header">
+      <h2 class="widget-title">Tasks</h2>
+      <button class="btn-link">View All</button>
+    </div>
+    
+    <div class="tasks-list">
+      <div class="task-item">
+        <div class="task-checkbox">
+          <input type="checkbox" id="task1">
+        </div>
+        <div class="task-content">
+          <label for="task1" class="task-label">Review project requirements</label>
+          <span class="task-due">Due today</span>
+        </div>
+        <div class="task-priority high"></div>
+      </div>
+      
+      <div class="task-item">
+        <div class="task-checkbox">
+          <input type="checkbox" id="task2">
+        </div>
+        <div class="task-content">
+          <label for="task2" class="task-label">Prepare presentation slides</label>
+          <span class="task-due">Due tomorrow</span>
+        </div>
+        <div class="task-priority medium"></div>
+      </div>
+      
+      <div class="task-item">
+        <div class="task-checkbox">
+          <input type="checkbox" id="task3">
+        </div>
+        <div class="task-content">
+          <label for="task3" class="task-label">Schedule meeting with design team</label>
+          <span class="task-due">Due in 2 days</span>
+        </div>
+        <div class="task-priority low"></div>
+      </div>
+      
+      <div class="task-item">
+        <div class="task-checkbox">
+          <input type="checkbox" id="task4" checked>
+        </div>
+        <div class="task-content">
+          <label for="task4" class="task-label completed">Collect feedback from beta testers</label>
+          <span class="task-due">Completed</span>
+        </div>
+        <div class="task-priority medium"></div>
+      </div>
+      
+      <div class="task-item">
+        <div class="task-checkbox">
+          <input type="checkbox" id="task5">
+        </div>
+        <div class="task-content">
+          <label for="task5" class="task-label">Finalize release notes</label>
+          <span class="task-due">Due in 3 days</span>
+        </div>
+        <div class="task-priority high"></div>
+      </div>
+    </div>
+    
+    <div class="add-task">
+      <input type="text" placeholder="Add a new task..." class="new-task-input">
+      <button class="btn-add-task">
+        <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+      </button>
+    </div>
+  </div>
+</section>

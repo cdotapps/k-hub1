@@ -1,0 +1,10 @@
+<div class="page-container" [class.full-width]="fullWidth">
+  <div class="page-header" *ngIf="showHeader">
+    <h1 class="page-title" *ngIf="title">{{ title }}</h1>
+    <p class="page-subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+  </div>
+  
+  <div class="content-container" [class.card-style]="cardStyle">
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,196 @@
+.site-footer {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  padding: var(--spacing-3xl) 0 var(--spacing-lg);
+  font-family: var(--body-font);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.footer-heading {
+  color: #ffffff;
+  font-family: var(--heading-font);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  margin: 0 0 var(--spacing-md);
+  position: relative;
+}
+
+.footer-heading::after {
+  content: '';
+  position: absolute;
+  bottom: calc(-1 * var(--spacing-xs));
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: var(--highlight-color);
+}
+
+.footer-section p {
+  margin: 0 0 var(--spacing-md);
+  line-height: var(--line-height-base);
+  font-size: var(--font-size-sm);
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-links a,
+.social-link {
+  color: var(--light-text);
+  text-decoration: none;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  display: inline-block;
+}
+
+.footer-links a:hover,
+.social-link:hover {
+  color: var(--accent-color);
+  padding-left: var(--spacing-sm);
+}
+
+.social-links {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+.social-link {
+  color: var(--light-text);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.social-link:hover {
+  color: var(--highlight-color);
+  background-color: rgba(255, 255, 255, 0.2);
+  padding-left: 0;
+  transform: translateY(-3px);
+}
+
+.subscribe-form {
+  display: flex;
+  margin-top: var(--spacing-sm);
+}
+
+.subscribe-input {
+  flex: 1;
+  background-color: #2e3338;
+  border: 1px solid #484e55;
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-sm);
+  font-family: var(--body-font);
+  font-size: var(--font-size-sm);
+  border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+}
+
+.subscribe-input::placeholder {
+  color: var(--light-text);
+}
+
+.subscribe-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.subscribe-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0 var(--spacing-md);
+  font-family: var(--body-font);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  transition: background-color 0.2s ease;
+}
+
+.subscribe-btn:hover {
+  background-color: var(--highlight-color);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--font-size-sm);
+}
+
+.footer-meta-links {
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.footer-meta-links a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-meta-links a:hover {
+  color: var(--highlight-color);
+}
+
+.footer-meta-links a fa-icon {
+  margin-right: var(--spacing-xs);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .footer-heading::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-meta-links {
+    margin-top: var(--spacing-md);
+  }
+}

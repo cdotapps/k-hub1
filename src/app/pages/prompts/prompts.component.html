@@ -1,0 +1,160 @@
+<app-page-container title="Prompt Library" subtitle="Browse and search AI prompts for different business categories" [cardStyle]="false">
+  <!-- Search and Filter Section -->
+  <div class="search-filter-bar">
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <fa-icon icon="search" class="search-icon"></fa-icon>
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Search prompts..." 
+          [(ngModel)]="searchTerm"
+          (keyup)="searchPrompts()"
+        >
+        <button *ngIf="searchTerm" class="clear-search" (click)="clearSearch()">
+          <fa-icon icon="times-circle"></fa-icon>
+        </button>
+      </div>
+    </div>
+    
+    <div class="filter-container">
+      <div class="filter-label">Filter by:</div>
+      <div class="category-filters">
+        <button 
+          class="category-filter-btn" 
+          [class.active]="selectedCategory === 'all'"
+          (click)="selectCategory('all')"
+        >
+          All Prompts
+        </button>
+        <button 
+          *ngFor="let category of categories"
+          class="category-filter-btn"
+          [class.active]="selectedCategory === category.id"
+          (click)="selectCategory(category.id)"
+        >
+          <fa-icon [icon]="category.iconName"></fa-icon>
+          {{ category.name }}
+        </button>
+      </div>
+      
+      <div class="view-options">
+        <button 
+          class="view-option-btn" 
+          [class.active]="viewType === 'grid'" 
+          title="Card View"
+          (click)="switchView('grid')"
+        >
+          <fa-icon icon="th-large"></fa-icon>
+        </button>
+        <button 
+          class="view-option-btn" 
+          [class.active]="viewType === 'list'" 
+          title="List View"
+          (click)="switchView('list')"
+        >
+          <fa-icon icon="list"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Button - Made more prominent -->
+  <div class="create-button-container">
+    <button class="create-button" [routerLink]="['/prompts/create']">
+      <fa-icon icon="plus"></fa-icon>
+      Create Prompt
+    </button>
+  </div>
+
+  <!-- Results Status Bar -->
+  <div class="results-status-bar">
+    <div class="results-count">
+      <span>{{ filteredPrompts.length }} results</span>
+      <span *ngIf="searchTerm"> for "{{ searchTerm }}"</span>
+      <span *ngIf="selectedCategory !== 'all'"> in {{ getCategoryName(selectedCategory) }}</span>
+    </div>
+    
+    <div class="sort-options">
+      <label for="sortSelect">Sort by:</label>
+      <select id="sortSelect" [(ngModel)]="sortOption" (change)="sortPrompts()">
+        <option value="newest">Newest</option>
+        <option value="popular">Most Popular</option>
+        <option value="mostUsed">Most Used</option>
+        <option value="alphabetical">Alphabetical (A-Z)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner">
+      <fa-icon icon="spinner" class="fa-spin fa-3x"></fa-icon>
+    </div>
+    <p>Loading prompts...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-container">
+    <fa-icon icon="exclamation-circle" class="error-icon"></fa-icon>
+    <p>{{ error }}</p>
+    <button class="retry-button" (click)="loadPromptsFromApi()">Try Again</button>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !error && filteredPrompts.length === 0" class="empty-state">
+    <div class="empty-state-content">
+      <fa-icon icon="search" class="empty-icon"></fa-icon>
+      <h3>No prompts found</h3>
+      <p *ngIf="searchTerm">We couldn't find any prompts matching "{{ searchTerm }}"</p>
+      <p *ngIf="!searchTerm && selectedCategory !== 'all'">No prompts available in the selected category</p>
+      <p *ngIf="!searchTerm && selectedCategory === 'all'">There are no prompts in the library yet</p>
+      <button class="primary-button" (click)="clearFilters()">Clear Filters</button>
+    </div>
+  </div>
+
+  <!-- Prompts Grid View -->
+  <div *ngIf="!isLoading && !error && filteredPrompts.length > 0 && viewType === 'grid'" class="prompts-grid">
+    <app-prompt-card 
+      *ngFor="let prompt of filteredPrompts"
+      [prompt]="prompt"
+      [viewMode]="'grid'"
+      [categoryName]="getCategoryName(prompt.category)"
+      [categoryIcon]="getCategoryIcon(prompt.category)"
+      (favoriteToggled)="toggleFavorite($event)"
+      (viewClicked)="viewPrompt($event)"
+      (useClicked)="usePrompt($event)">
+      <div class="prompt-id">ID: {{ prompt.id }}</div>
+    </app-prompt-card>
+  </div>
+  
+  <!-- Prompts List View -->
+  <div *ngIf="!isLoading && !error && filteredPrompts.length > 0 && viewType === 'list'" class="prompts-list">
+    <app-prompt-card 
+      *ngFor="let prompt of filteredPrompts"
+      [prompt]="prompt"
+      [viewMode]="'list'"
+      [categoryName]="getCategoryName(prompt.category)"
+      [categoryIcon]="getCategoryIcon(prompt.category)"
+      (favoriteToggled)="toggleFavorite($event)"
+      (viewClicked)="viewPrompt($event)"
+      (useClicked)="usePrompt($event)">
+      <div class="prompt-id">ID: {{ prompt.id }}</div>
+    </app-prompt-card>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-controls" *ngIf="filteredPrompts.length > 0">
+    <button class="pagination-btn" [disabled]="currentPage === 1">
+      <fa-icon icon="chevron-left"></fa-icon>
+      Previous
+    </button>
+    
+    <div class="page-indicator">Page {{ currentPage }} of {{ totalPages }}</div>
+    
+    <button class="pagination-btn" [disabled]="currentPage === totalPages">
+      Next
+      <fa-icon icon="chevron-right"></fa-icon>
+    </button>
+  </div>
+</app-page-container>

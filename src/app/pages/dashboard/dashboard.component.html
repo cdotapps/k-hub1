@@ -1,0 +1,191 @@
+<div class="dashboard-container">
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <div class="welcome-card">
+      <h1>Welcome back, {{username}}!</h1>
+      <p>Last login: {{lastLoginDate | date:'medium'}}</p>
+      <div class="quick-actions">
+        <button class="action-btn primary">
+          <fa-icon icon="plus"></fa-icon> Add Content
+        </button>
+        <button class="action-btn secondary">
+          <fa-icon icon="compass"></fa-icon> Explore Topics
+        </button>
+        <button class="action-btn secondary">
+          <fa-icon icon="graduation-cap"></fa-icon> Start Learning
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="metrics-section">
+    <h2 class="section-title">Your Knowledge Hub Stats</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon">
+          <fa-icon icon="book-reader"></fa-icon>
+        </div>
+        <div class="metric-content">
+          <h3 class="metric-value">{{totalArticlesRead}}</h3>
+          <p class="metric-label">Articles Read</p>
+        </div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-icon">
+          <fa-icon icon="award"></fa-icon>
+        </div>
+        <div class="metric-content">
+          <h3 class="metric-value">{{coursesCompleted}}</h3>
+          <p class="metric-label">Courses Completed</p>
+        </div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-icon">
+          <fa-icon icon="brain"></fa-icon>
+        </div>
+        <div class="metric-content">
+          <h3 class="metric-value">{{knowledgeScore}}</h3>
+          <p class="metric-label">Knowledge Score</p>
+        </div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-icon">
+          <fa-icon icon="medal"></fa-icon>
+        </div>
+        <div class="metric-content">
+          <h3 class="metric-value">{{certificatesEarned}}</h3>
+          <p class="metric-label">Certificates</p>
+        </div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-icon">
+          <fa-icon icon="hands-helping"></fa-icon>
+        </div>
+        <div class="metric-content">
+          <h3 class="metric-value">{{contributionPoints}}</h3>
+          <p class="metric-label">Contribution Points</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div class="charts-grid">
+      <!-- Category Progress Chart -->
+      <div class="chart-card radar-chart">
+        <canvas baseChart
+          [type]="'radar'"
+          [data]="categoryProgressData"
+          [options]="categoryProgressOptions">
+        </canvas>
+      </div>
+      
+      <!-- Monthly Activity Chart -->
+      <div class="chart-card line-chart">
+        <canvas baseChart
+          [type]="'line'"
+          [data]="monthlyActivityData"
+          [options]="monthlyActivityOptions">
+        </canvas>
+      </div>
+      
+      <!-- Content Distribution Chart -->
+      <div class="chart-card donut-chart">
+        <canvas baseChart
+          [type]="'doughnut'"
+          [data]="contentTypeData"
+          [options]="contentTypeOptions">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two-column layout for activities and popular content -->
+  <div class="two-column-section">
+    <!-- Recent Activities -->
+    <div class="column">
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Recent Activities</h2>
+          <a href="#" class="view-all">View All</a>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item" *ngFor="let activity of recentActivities">
+            <div class="activity-icon">
+              <fa-icon [icon]="activity.icon"></fa-icon>
+            </div>
+            <div class="activity-content">
+              <h4 class="activity-title">{{activity.title}}</h4>
+              <div class="activity-meta">
+                <span class="activity-type">{{activity.type}}</span>
+                <span class="activity-date">{{formatDate(activity.date)}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Popular Content -->
+    <div class="column">
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Popular Content</h2>
+          <a href="#" class="view-all">Browse All</a>
+        </div>
+        <div class="popular-content-list">
+          <div class="content-item" *ngFor="let content of popularContent">
+            <div class="content-icon">
+              <fa-icon [icon]="content.icon"></fa-icon>
+            </div>
+            <div class="content-details">
+              <h4 class="content-title">{{content.title}}</h4>
+              <span class="content-category">{{content.category}}</span>
+              <div class="content-stats">
+                <span class="stat">
+                  <fa-icon icon="eye"></fa-icon> {{content.views.toLocaleString()}}
+                </span>
+                <span class="stat">
+                  <fa-icon icon="thumbs-up"></fa-icon> {{content.likes.toLocaleString()}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommended Content Section -->
+  <div class="recommendations-section">
+    <h2 class="section-title">Recommended For You</h2>
+    <div class="recommendations-grid">
+      <div class="recommendation-card" *ngFor="let rec of recommendations">
+        <div class="recommendation-thumbnail">
+          <div class="match-badge">{{rec.match}} Match</div>
+        </div>
+        <div class="recommendation-content">
+          <h4 class="recommendation-title">{{rec.title}}</h4>
+          <div class="recommendation-meta">
+            <span class="recommendation-type">{{rec.type}}</span>
+            <span class="recommendation-duration">
+              <fa-icon icon="clock"></fa-icon> {{rec.duration}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="see-more">
+      <button class="see-more-btn">
+        <span>Explore More Content</span>
+        <fa-icon icon="chevron-right"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>
